@@ -10,7 +10,13 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-body { background-color: var(--bg-gray); display: flex; min-height: 100vh; }
+body { 
+    background-color: var(--bg-gray); 
+    display: flex; 
+    min-height: 100vh; 
+    width: 100%; /* Thêm dòng này */
+    overflow-x: hidden; /* Chống cuộn ngang làm vỡ giao diện */
+}
 a { text-decoration: none; }
 
 
@@ -18,15 +24,15 @@ a { text-decoration: none; }
 .sidebar {
     width: var(--sidebar-width);
     background-color: white;
-    height: 100vh;
+    height: calc(100vh - var(--header-height));
     position: fixed;
-    top: 0; left: 0;
+    top: var(--header-height);
+    left: 0;
     box-shadow: 2px 0 5px rgba(0,0,0,0.05);
     display: flex;
     flex-direction: column;
-    z-index: 100;
+    z-index: 90;
 }
-
 .brand {
     height: var(--header-height);
     display: flex; align-items: center; padding: 0 20px;
@@ -69,17 +75,27 @@ a { text-decoration: none; }
 /* ========================================= */
 .main-content {
     margin-left: var(--sidebar-width);
-    flex-grow: 1;
-    display: flex; flex-direction: column;
+    padding-top: var(--header-height);
+    width: calc(100% - var(--sidebar-width));
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Header trên cùng */
 .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     height: var(--header-height);
     background-color: white;
-    display: flex; justify-content: space-between; align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 0 30px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    z-index: 100;
 }
 .header-title { font-size: 18px; font-weight: 600; color: #333; }
 .user-info { display: flex; align-items: center; gap: 15px; }

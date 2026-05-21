@@ -1,2 +1,19 @@
+# Bỏ qua file môi trường có thể chứa mật khẩu kết nối database
+.env
+
+# Bỏ qua thư mục cấu hình riêng
+config/
+
+# Bỏ qua các file nhật ký (log) sinh ra trong quá trình chạy
+*.log
+
+# Bỏ qua cấu hình giao diện riêng của phần mềm VS Code
+.vscode/
+
+# Bỏ qua thư mục chứa thư viện mã nguồn tự sinh
+/vendor/
+node_modules/
+
+# Bỏ qua các file rác do hệ điều hành tự sinh ra
 .DS_Store
 Thumbs.db

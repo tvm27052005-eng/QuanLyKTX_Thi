@@ -101,7 +101,7 @@
 
             <?php if(!empty($error)) echo "<div class='error-msg'>$error</div>"; ?>
 
-            <form method="POST" action="index.php?controller=auth&action=login">
+            <form method="POST" action="index.php?controller=xac_thuc&action=login">
                 <div class="form-group">
                     <label>Tên đăng nhập</label>
                     <input type="text" name="username" placeholder="Nhập mã quản lý" required>
@@ -114,7 +114,7 @@
 
                 <div class="options">
                     <label><input type="checkbox"> Ghi nhớ đăng nhập</label>
-                    <a href="index.php?controller=auth&action=forgot">Quên mật khẩu?</a>
+                    
                 </div>
 
                 <button type="submit" class="btn-login">Đăng nhập</button>

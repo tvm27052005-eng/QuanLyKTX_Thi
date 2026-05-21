@@ -21,5 +21,21 @@ class UserModel {
         }
         return false; // Sai tài khoản/mật khẩu hoặc lỗi query
     }
+    // Hàm Đổi mật khẩu
+    public function changePassword($user_id, $old_password, $new_password) {
+        $id = (int)$user_id;
+        $old = $this->conn->real_escape_string($old_password);
+        $new = $this->conn->real_escape_string($new_password);
+        
+        // 1. Kiểm tra mật khẩu cũ có đúng không
+        $check = $this->conn->query("SELECT id FROM tai_khoan WHERE id = $id AND mat_khau = '$old'");
+        if ($check && $check->num_rows > 0) {
+            // 2. Nếu đúng thì cập nhật mật khẩu mới
+            $this->conn->query("UPDATE tai_khoan SET mat_khau = '$new' WHERE id = $id");
+            return true;
+        }
+        return false; // Mật khẩu cũ bị sai
+    }
+    
 }
 ?>

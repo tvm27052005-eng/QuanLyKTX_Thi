@@ -1,0 +1,21 @@
+public function getAll($keyword = '') {
+        $where = "1";
+        if (!empty($keyword)) {
+            $kw = $this->conn->real_escape_string($keyword);
+            $where .= " AND (p.ma_phong LIKE '%$kw%' OR sc.nguoi_bao LIKE '%$kw%' OR sc.noi_dung LIKE '%$kw%')";
+        }
+        
+        $sql = "SELECT sc.*, p.ma_phong 
+                FROM su_co sc 
+                LEFT JOIN phong p ON sc.phong_id = p.id 
+                WHERE $where ORDER BY sc.id DESC";
+                
+        $result = $this->conn->query($sql);
+        $data = [];
+        if ($result && $result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                $data[] = $row;
+            }
+        }
+        return $data;
+    }

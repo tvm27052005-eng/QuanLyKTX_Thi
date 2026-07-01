@@ -398,7 +398,16 @@ async function savePhong() {
 // ======= XÓA =======
 async function deletePhong(id, ten) {
   if (!confirm(`Bạn có chắc muốn xóa phòng "${ten}" không?`)) return;
-  const res    = await fetch(`${API}?action=delete&id=${id}`);
+  
+  // Tạo request cấu hình chuẩn RESTful DELETE
+  const res = await fetch(`${API}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ id: id }) // Đóng gói id thành chuỗi JSON
+  });
+  
   const result = await res.json();
   showToast(result.message, result.success ? 'success' : 'error');
   if (result.success) loadData();

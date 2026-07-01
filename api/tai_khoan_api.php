@@ -14,15 +14,15 @@ function jsonResponse($success, $message = '', $data = null, $httpCode = 200) {
     exit;
 }
 
-// Kiểm tra đăng nhập + quyền admin
-//if (!isset($_SESSION['user_id'])) {
-   // jsonResponse(false, 'Bạn chưa đăng nhập!', null, 401);
-//}
+ Kiểm tra đăng nhập + quyền admin
+if (!isset($_SESSION['user_id'])) {
+    jsonResponse(false, 'Bạn chưa đăng nhập!', null, 401);
+}
 
-//$role = $_SESSION['vai_tro'] ?? '';
-//if ($role !== 'admin') {
- //   jsonResponse(false, 'Chỉ admin được quản lý tài khoản!', null, 403);
-//}
+$role = $_SESSION['vai_tro'] ?? '';
+if ($role !== 'admin') {
+    jsonResponse(false, 'Chỉ admin được quản lý tài khoản!', null, 403);
+}
 
 $db = (new Database())->getConnection();
 $model = new TaiKhoanModel($db);

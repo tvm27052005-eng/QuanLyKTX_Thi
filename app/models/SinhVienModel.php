@@ -97,6 +97,12 @@ class SinhVienModel {
             $this->conn->query("DELETE FROM hop_dong WHERE ma_sv = '$ma_sv'");
             $this->conn->query("DELETE FROM sinh_vien WHERE ma_sv = '$ma_sv'");
             
+            // THÊM ĐOẠN NÀY ĐỂ BẮT LỖI TC_05: Kiểm tra xem có thực sự xóa được dòng nào không
+            if ($this->conn->affected_rows == 0) {
+                $this->conn->rollback();
+                return false;
+            }
+            
             $this->conn->commit();
             return true;
         } catch (Exception $e) {

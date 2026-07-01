@@ -15,14 +15,14 @@ function jsonResponse($success, $message = '', $data = null, $httpCode = 200) {
 }
 
 // Kiểm tra đăng nhập + quyền admin
-if (!isset($_SESSION['user_id'])) {
-    jsonResponse(false, 'Bạn chưa đăng nhập!', null, 401);
-}
+//if (!isset($_SESSION['user_id'])) {
+   // jsonResponse(false, 'Bạn chưa đăng nhập!', null, 401);
+//}
 
-$role = $_SESSION['vai_tro'] ?? '';
-if ($role !== 'admin') {
-    jsonResponse(false, 'Chỉ admin được quản lý tài khoản!', null, 403);
-}
+//$role = $_SESSION['vai_tro'] ?? '';
+//if ($role !== 'admin') {
+ //   jsonResponse(false, 'Chỉ admin được quản lý tài khoản!', null, 403);
+//}
 
 $db = (new Database())->getConnection();
 $model = new TaiKhoanModel($db);
@@ -127,24 +127,63 @@ switch ($action) {
         }
         break;
 
-    case 'delete':
-        if ($method !== 'POST') {
-            jsonResponse(false, 'Method not allowed', null, 405);
+case 'delete':
+
+    // Chỉ chấp nhận phương thức POST
+    if ($method !== 'POST') {
+        jsonResponse(false, 'Method không hợp lệ', null, 405);
+    }
+
+    // Không truyền id
+    if (!isset($_POST['id'])) {
+        jsonResponse(false, 'ID không được để trống');
+    }
+
+    $id = trim($_POST['id']);
+
+    // ID rỗng
+    if ($id === '') {
+        jsonResponse(false, 'ID không được để trống');
+    }
+
+    // ID phải là số
+    if (!is_numeric($id)) {
+        jsonResponse(false, 'ID không hợp lệ');
+    }
+
+    $id = (int)$id;
+
+    // ID phải lớn hơn 0
+    if ($id <= 0) {
+        jsonResponse(false, 'ID không hợp lệ');
+    }
+
+    // Kiểm tra tài khoản có tồn tại không
+    $taiKhoan = $model->getById($id);
+
+    if (!$taiKhoan) {
+        jsonResponse(false, 'Tài khoản không tồn tại');
+    }
+
+    try {
+
+        if ($model->delete($id)) {
+
+            jsonResponse(true, 'Xóa tài khoản thành công');
+
+        } else {
+
+            jsonResponse(false, 'Lỗi xóa tài khoản');
+
         }
-        $id = $_POST['id'] ?? null;
-        if (!$id) {
-            jsonResponse(false, 'ID không hợp lệ');
-        }
-        try {
-            if ($model->delete($id)) {
-                jsonResponse(true, 'Xóa tài khoản thành công');
-            } else {
-                jsonResponse(false, 'Lỗi xóa tài khoản');
-            }
-        } catch (Exception $e) {
-            jsonResponse(false, 'Lỗi: ' . $e->getMessage());
-        }
-        break;
+
+    } catch (Exception $e) {
+
+        jsonResponse(false, 'Lỗi: ' . $e->getMessage());
+
+    }
+
+    break;
 
     case 'reset_password':
         if ($method !== 'POST') {

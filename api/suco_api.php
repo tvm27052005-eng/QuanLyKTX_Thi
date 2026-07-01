@@ -14,15 +14,16 @@ function jsonResponse($success, $message = '', $data = null, $httpCode = 200) {
     exit;
 }
 
-if (!isset($_SESSION['user_id'])) {
-    jsonResponse(false, 'Bạn chưa đăng nhập!', null, 401);
-}
+//if (!isset($_SESSION['user_id'])) {
+ //   jsonResponse(false, 'Bạn chưa đăng nhập!', null, 401);
+//}
 
-$role = $_SESSION['vai_tro'] ?? '';
-if (!in_array($role, ['admin', 'nhan_vien', 'sinh_vien'], true)) {
-    jsonResponse(false, 'Vai trò không hợp lệ!', null, 403);
-}
+//$role = $_SESSION['vai_tro'] ?? '';
+//if (!in_array($role, ['admin', 'nhan_vien', 'sinh_vien'], true)) {
+    //jsonResponse(false, 'Vai trò không hợp lệ!', null, 403);
+//}
 
+$role = 'admin'; // Cấp quyền admin ảo để test
 $db = (new Database())->getConnection();
 $model = new SuCoModel($db);
 

@@ -10,7 +10,7 @@ config/
 # Bỏ qua cấu hình giao diện riêng của phần mềm VS Code
 .vscode/
 
-# Bỏ qua thư mục chứa thư viện mã nguồn tự sinh
+# Bỏ qua thư mục chứa thư viện mã nguồn tự sinhA
 /vendor/
 node_modules/
 

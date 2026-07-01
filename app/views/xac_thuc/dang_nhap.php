@@ -122,5 +122,56 @@
         </div>
     </div>
 
+    <!-- SCRIPT CHUYỂN ĐỔI FORM SANG GỌI API -->
+    <script>
+        document.querySelector('form').addEventListener('submit', async function(e) {
+            e.preventDefault(); // Chặn hành động load lại trang của action gốc
+            
+            const form = this;
+            const btnSubmit = form.querySelector('.btn-login');
+            const formData = new FormData(form);
+
+            // Đổi text nút để báo hiệu đang xử lý
+            const originalBtnText = btnSubmit.innerText;
+            btnSubmit.innerText = 'Đang xử lý...';
+            btnSubmit.disabled = true;
+
+            try {
+                // Gửi dữ liệu tới file API
+                const res = await fetch('api/login_api.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await res.json();
+
+                if (result.success) {
+                    // Nếu thành công, chuyển hướng về trang chủ
+                    window.location.href = result.redirect;
+                } else {
+                    // Nếu thất bại (sai pass/user), hiển thị lỗi động
+                    let errorDiv = document.querySelector('.error-msg');
+                    
+                    if (!errorDiv) {
+                        errorDiv = document.createElement('div');
+                        errorDiv.className = 'error-msg';
+                        form.parentNode.insertBefore(errorDiv, form);
+                    }
+                    
+                    errorDiv.innerText = result.message;
+                    errorDiv.style.display = 'block';
+                    
+                    // Khôi phục nút submit
+                    btnSubmit.innerText = originalBtnText;
+                    btnSubmit.disabled = false;
+                }
+            } catch (error) {
+                console.error("Lỗi:", error);
+                alert('Lỗi kết nối máy chủ! Vui lòng thử lại.');
+                btnSubmit.innerText = originalBtnText;
+                btnSubmit.disabled = false;
+            }
+        });
+    </script>
 </body>
 </html>

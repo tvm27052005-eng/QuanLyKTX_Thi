@@ -1,7 +1,7 @@
 <?php
 session_start();
 header("Content-Type: application/json; charset=UTF-8");
-
+//huy2
 require_once '../app/config/database.php';
 require_once '../app/models/ThanhToanModel.php';
 

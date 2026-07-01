@@ -1,0 +1,1 @@
+Day la lan dau tien toi thuc hanh Git bang PowerShell va toi la son

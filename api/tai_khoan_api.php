@@ -29,7 +29,7 @@ $model = new TaiKhoanModel($db);
 
 $method = $_SERVER['REQUEST_METHOD'];
 $action = $_GET['action'] ?? '';
-
+//anh
 switch ($action) {
     case 'get_all':
         if ($method !== 'GET') {

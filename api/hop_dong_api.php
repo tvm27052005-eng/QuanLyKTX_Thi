@@ -7,7 +7,7 @@ $db = (new Database())->getConnection();
 $model = new HopDongModel($db);
 
 $action = $_GET['action'] ?? '';
-//huy
+//huy nguyen
 switch ($action) {
 
     case 'get_all':

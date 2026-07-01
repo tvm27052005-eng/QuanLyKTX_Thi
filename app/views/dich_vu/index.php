@@ -60,7 +60,7 @@
                     </div>
                     <div style="padding: 20px;">
                         <div class="form-group">
-                            <label>Chọn Phòng cần cấu hình phí dịch vụ:</label>
+                            <label>họn Phòng cần cấu hình phí dịch vụ:</label>
                             <select id="phongSelect" class="form-control" style="border-color: #2e7d32; font-weight: bold; color: #2e7d32; background: #e8f5e9;" onchange="loadRoomServices()">
                                 <option value="">-- Tải danh sách phòng... --</option>
                             </select>

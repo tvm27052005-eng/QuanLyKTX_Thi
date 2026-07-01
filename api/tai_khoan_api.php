@@ -14,22 +14,21 @@ function jsonResponse($success, $message = '', $data = null, $httpCode = 200) {
     exit;
 }
 
-<<<<<<< Updated upstream
- Kiểm tra đăng nhập + quyền admin
-=======
+
+
+
 // Kiểm tra đăng nhập + quyền admin
->>>>>>> Stashed changes
 if (!isset($_SESSION['user_id'])) {
     jsonResponse(false, 'Bạn chưa đăng nhập!', null, 401);
 }
 
 $role = $_SESSION['vai_tro'] ?? '';
 if ($role !== 'admin') {
-<<<<<<< Updated upstream
+
     jsonResponse(false, 'Chỉ admin được quản lý tài khoản!', null, 403);
-=======
+
    jsonResponse(false, 'Chỉ admin được quản lý tài khoản!', null, 403);
->>>>>>> Stashed changes
+
 }
 
 $db = (new Database())->getConnection();
